@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Replace every {{...}} mark. Delete the comments. Keep the CSS as it is. -->
+<title>{{TITLE: 2 to 4 words, for example "Upload Retry Fix"}}</title>
+<style>
+:root {
+  --bg: #f7f8f7; --card: #ffffff; --text: #1d2420; --muted: #5b665f; --line: #d5dbd7;
+  --bad: #c23b32; --bad-bg: #fbeceb; --good: #16834f; --good-bg: #e7f5ed; --accent: #20AC6B;
+  --box: #eef1ef;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141816; --card: #1d2320; --text: #e6ebe8; --muted: #9aa59f; --line: #34403a;
+    --bad: #f07a70; --bad-bg: #3a1f1d; --good: #4fd08f; --good-bg: #17332a; --accent: #20AC6B;
+    --box: #262d29;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141816; --card: #1d2320; --text: #e6ebe8; --muted: #9aa59f; --line: #34403a;
+  --bad: #f07a70; --bad-bg: #3a1f1d; --good: #4fd08f; --good-bg: #17332a; --accent: #20AC6B;
+  --box: #262d29;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 1.5rem; margin: 0 0 4px; }
+h2 { font-size: 1.15rem; margin: 32px 0 8px; }
+.meta { color: var(--muted); font-size: .9rem; margin: 0 0 16px; }
+code { font-size: .88em; background: var(--box); padding: 1px 4px; border-radius: 4px; overflow-wrap: anywhere; }
+.scroll { overflow-x: auto; margin: 12px 0; }
+svg { display: block; max-width: 100%; height: auto; }
+svg text { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--text); }
+svg .t-bad { fill: var(--bad); font-weight: 600; }
+svg .t-good { fill: var(--good); font-weight: 600; }
+svg .t-muted { fill: var(--muted); }
+svg .b { fill: var(--box); stroke: var(--line); }
+svg .b-bad { fill: var(--bad-bg); stroke: var(--bad); }
+svg .b-good { fill: var(--good-bg); stroke: var(--good); }
+svg .ln { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+svg .ln-bad { stroke: var(--bad); stroke-width: 1.5; fill: none; }
+svg .ln-good { stroke: var(--good); stroke-width: 1.5; fill: none; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.bad { color: var(--bad); font-weight: 600; }
+.good { color: var(--good); font-weight: 600; }
+.none { color: var(--muted); font-style: italic; }
+.shots { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 640px) { .shots { grid-template-columns: 1fr 1fr; } }
+figure { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+figure img { width: 100%; height: auto; border-radius: 4px; display: block; }
+figcaption { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+details { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin: 8px 0; }
+summary { cursor: pointer; font-weight: 600; }
+pre { background: var(--box); padding: 8px; border-radius: 6px; overflow-x: auto; font-size: .8rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>{{HEADING: the result in user words, for example "The Annotate button works again"}}</h1>
+<!-- Not committed: "Not committed. Uncommitted change on branch <code>...</code>, base commit <code>...</code>." Not deployed: "Not deployed." -->
+<p class="meta">Commit <code>{{COMMIT}}</code> on branch <code>{{BRANCH}}</code>. {{DEPLOY: "Staging deploy 12 on 2026-11-20." or "Not deployed."}} The defect came from commit <code>{{CAUSE_COMMIT}}</code>.</p>
+<!-- Cause commit not known: delete the last sentence. -->
+
+<h2>Terms</h2>
+<p>{{TERMS: 2 to 4 terms, one sentence each, <b>term</b> in bold.}}</p>
+
+<h2>1. What was wrong</h2>
+<p>{{WRONG: 2 to 4 sentences. First what the user saw, then the cause.}}</p>
+<div class="scroll">
+<!-- One figure: a chain, a sequence with its error exit, or the broken screen state.
+     viewBox width 640. A label needs 7 px per character. Bad parts use b-bad / t-bad / ln-bad. -->
+<svg viewBox="0 0 640 {{H}}" role="img" aria-label="{{WRONG_FIGURE}}">
+  <rect class="b" x="10" y="8" width="300" height="30" rx="6"/>
+  <text x="20" y="28">{{STEP}}</text>
+  <path class="ln-bad" d="M40 38 V52"/>
+  <rect class="b-bad" x="10" y="52" width="300" height="30" rx="6"/>
+  <text class="t-bad" x="20" y="72">{{FAILURE}}</text>
+</svg>
+</div>
+
+<h2>2. How it was fixed</h2>
+<p>{{FIX: 2 to 3 sentences. What changed, in which files, and what did not change.}}</p>
+<div class="scroll">
+<!-- One figure: Before and After columns, or one card per case of the new rule. Good parts use b-good. -->
+<svg viewBox="0 0 640 {{H}}" role="img" aria-label="{{FIX_FIGURE}}">
+  <text class="t-bad" x="10" y="20">Before</text>
+  <rect class="b-bad" x="10" y="32" width="300" height="34" rx="6"/>
+  <text x="20" y="54">{{BEFORE}}</text>
+  <text class="t-good" x="330" y="20">After</text>
+  <rect class="b-good" x="330" y="32" width="300" height="34" rx="6"/>
+  <text x="340" y="54">{{AFTER}}</text>
+</svg>
+</div>
+<details>
+<summary>What changed in the code</summary>
+<p>{{CODE_CHANGE: at most 120 words. Files, functions, the new test.}}</p>
+</details>
+
+<h2>3. Test evidence</h2>
+<div class="scroll">
+<!-- A cell without evidence: <td class="none">not done</td>. Never fill it with a guess. -->
+<table>
+<tr><th>Test</th><th>Before the fix</th><th>After the fix</th></tr>
+<tr><td>Unit tests ({{SCOPE}})</td><td class="bad">{{BASE_COUNTS}}</td><td class="good">{{BRANCH_COUNTS}}</td></tr>
+<tr><td>Local real run</td><td class="bad">{{LOCAL_BEFORE}}</td><td class="good">{{LOCAL_AFTER}}</td></tr>
+<tr><td>{{ENV}} real run</td><td class="bad">{{DEPLOYED_BEFORE: the proof value (id, status code, element on top, error text) and time}}</td><td class="good">{{DEPLOYED_AFTER}}</td></tr>
+<tr><td>What the user sees</td><td>{{USER_BEFORE}}</td><td>{{USER_AFTER}}</td></tr>
+</table>
+</div>
+
+<div class="shots">
+<figure>
+<!-- JPEG data URI, 800 to 960 px wide, at most 300 KB. -->
+<img alt="{{ALT_BEFORE}}" src="{{DATA_URI_BEFORE}}">
+<figcaption>Before, {{DATE}}, {{WHERE}}: {{CAPTION}}</figcaption>
+</figure>
+<figure>
+<img alt="{{ALT_AFTER}}" src="{{DATA_URI_AFTER}}">
+<figcaption>After, {{DATE}}, {{WHERE}}: {{CAPTION}}</figcaption>
+</figure>
+</div>
+
+<details>
+<summary>{{RUN_CARD: for example "Local run: commands and output"}}</summary>
+<pre>{{COMMANDS_AND_OUTPUT: copied from the evidence, short}}</pre>
+</details>
+<details>
+<summary>Unit test run</summary>
+<p>{{UNIT_CARD: the test files, the base commit, what failed on the base, why two counts differ.}}</p>
+</details>
+
+<h2>4. Lifecycle of {{ONE_ITEM: for example "one orthophoto job"}}</h2>
+<div class="scroll">
+<!-- One box per operation, in time order. Under each box: the actor, then the store change
+     ("jobs: +1 pending", "no change"). A read operation says "no change". -->
+<svg viewBox="0 0 640 {{H}}" role="img" aria-label="{{LIFECYCLE_FIGURE}}">
+  <rect class="b" x="10" y="10" width="140" height="56" rx="6"/>
+  <text x="20" y="30">1. {{OP}}</text>
+  <text class="t-muted" x="20" y="50">{{ACTOR}}</text>
+  <path class="ln" d="M150 38 H170"/>
+  <rect class="b-good" x="170" y="10" width="140" height="56" rx="6"/>
+  <text x="180" y="30">2. {{OP}}</text>
+  <text class="t-muted" x="180" y="50">{{ACTOR}}</text>
+  <text x="20" y="92">{{STORE_CHANGE}}</text>
+  <text x="180" y="92">{{STORE_CHANGE}}</text>
+</svg>
+</div>
+<details>
+<summary>Before the fix, the same steps</summary>
+<p>{{BEFORE_PATH: where the old flow stopped and what each store kept.}}</p>
+</details>
+<details>
+<summary>{{OTHER_CASES: repeat, empty case, a store down}}</summary>
+<p>{{OTHER_CASES_TEXT}}</p>
+</details>
+</main>
+</body>
+</html>
